@@ -1,42 +1,42 @@
 ﻿using System.Xml.Serialization;
-namespace OOP_1;
-class Program()
+namespace OOP_1
 {
-    static void Main(string[] args)
+    class Program
     {
-        // Используем конструктор, принимающий только имя
-        Student student1 = new Student("Иван");
-        Subject favoriteSubject1 = new Subject("Программирование");
-        Game favoriteGame1 = new Game("Футбол");
-        student1.SetFavorites(favoriteSubject1, favoriteGame1);
-        Console.WriteLine(student1.WriteInfo()); // Вывод: Имя: Иван, Возраст: 0, Программ-е, Футбол
+        static void Main(string[] args)
+        {
+            // Создаем три объекта класса Student различными способами
+            Student student1 = new Student("Иван");
+            Student student2 = new Student("Мария", 20);
+            Student student3 = new Student("Петр", 22);
 
-        // Используем конструктор, принимающий имя и возраст
-        Student student2 = new Student("Мария", 20);
-        Subject favoriteSubject2 = new Subject("Математика");
-        Game favoriteGame2 = new Game("Шахматы");
-        student2.SetFavorites(favoriteSubject2, favoriteGame2);
-        Console.WriteLine(student2.WriteInfo()); // Вывод: Имя: Мария, Возраст: 20, Математика, Шахматы
+            // Добавляем студентов в менеджер студентов
+            StudentManager.AddStudent(student1);
+            StudentManager.AddStudent(student2);
+            StudentManager.AddStudent(student3);
 
-        Console.WriteLine(" ");
+            // Отображаем информацию о всех студентах
+            StudentManager.DisplayAllStudents();
 
-        // Увеличиваем возраст первого студента
-        student1.BecomeOlder();
-        Console.WriteLine(student1.WriteInfo()); // Вывод: Имя: Иван, Возраст: 1, Программ-е, Футбол
+            // Увеличиваем возраст первого студента и отображаем информацию снова
+            student1.BecomeOlder();
+            Console.WriteLine(student1.WriteInfo());
 
-        // Увеличиваем возраст второго студента
-        student2.BecomeOlder();
-        Console.WriteLine(student2.WriteInfo()); // Вывод: Имя: Мария, Возраст: 21, Математика, Шахматы
+            // Увеличиваем возраст второго студента и отображаем информацию снова
+            student2.BecomeOlder();
+            Console.WriteLine(student2.WriteInfo());
 
-        Console.WriteLine(" ");
+            // Увеличиваем возраст третьего студента и отображаем информацию снова
+            student3.BecomeOlder();
+            Console.WriteLine(student3.WriteInfo());
 
-        // Демонстрация передачи параметров
-        string nameValue = "Оригинальное имя";
-        student2.ChangeNameByValue(nameValue);
-        Console.WriteLine($"Имя после вызова ChangeNameByValue: {nameValue}");
+            // Отображаем информацию о всех студентах после увеличения возраста
+            StudentManager.DisplayAllStudents();
 
-        student2.ChangeNameByReference(ref nameValue);
-        Console.WriteLine($"Имя после вызова ChangeNameByReference: {nameValue}");
+            // Сбрасываем количество студентов (для демонстрации)
+            Student.ResetStudentCount();
+
+            Console.WriteLine($"Количество студентов после сброса: {Student.StudentCount}");
+        }
     }
 }
-

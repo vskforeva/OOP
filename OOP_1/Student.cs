@@ -3,19 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace OOP_1
 {
     public class Student
     {
-        private string _name;
-        public int Age { get; set; }
+        private string _name; // Приватное поле для имени студента
+        public int Age { get; set; } // Свойство для возраста
 
-        // Свойства для любимого предмета и игры
-        public Subject FavoriteSubject { get; private set; }
-        public Game FavoriteGame { get; private set; }
 
-        // Свойство для имени
+
+        // Статическое поле для подсчета количества экземпляров класса Student
+        private static int _studentCount;
+
+        // Статическое свойство для получения количества студентов
+        public static int StudentCount
+        {
+            get { return _studentCount; }
+        }
+
+        // Статический метод для сброса счетчика студентов (для демонстрации)
+        public static void ResetStudentCount()
+        {
+            _studentCount = 0;
+            Console.WriteLine("Количество студентов сброшено.");
+        }
+
+        // Статический конструктор для инициализации статических членов
+        static Student()
+        {
+            _studentCount = 0; // Инициализируем количество студентов нулем
+        }
+
+
+
+        // Свойство для имени студента
         public string Name
         {
             get { return _name; }
@@ -26,7 +47,8 @@ namespace OOP_1
         public Student(string name)
         {
             _name = name;
-            Age = 0;
+            Age = 0; // Устанавливаем возраст по умолчанию
+            _studentCount++; // Увеличиваем счетчик студентов при создании нового экземпляра
         }
 
         // Конструктор, принимающий имя и возраст
@@ -34,57 +56,19 @@ namespace OOP_1
         {
             _name = name;
             Age = age;
-        }
-
-        // Метод для установки любимого предмета и игры
-        public void SetFavorites(Subject subject, Game game)
-        {
-            FavoriteSubject = subject;
-            FavoriteGame = game;
+            _studentCount++; // Увеличиваем счетчик студентов при создании нового экземпляра
         }
 
         // Метод для получения информации о студенте
         public string WriteInfo()
         {
-            return $"Имя: {_name}, Возраст: {Age}, Любимый предмет: {FavoriteSubject?.Name}, Любимая игра: {FavoriteGame?.Name}";
+            return $"Имя: {_name}, Возраст: {Age}";
         }
 
         // Метод для увеличения возраста на единицу
         public void BecomeOlder()
         {
             Age++;
-        }
-
-        // Метод для демонстрации передачи параметра по значению и по ссылке
-        public void ChangeNameByValue(string newName)
-        {
-            newName = "Измененное имя";
-            Console.WriteLine($"Имя внутри метода (по значению): {newName}");
-        }
-
-        public void ChangeNameByReference(ref string newName)
-        {
-            newName = "Измененное имя";
-            Console.WriteLine($"Имя внутри метода (по ссылке): {newName}");
-        }
-    }
-    public class Subject
-    {
-        public string Name { get; set; }
-
-        public Subject(string name)
-        {
-            Name = name;
-        }
-    }
-
-    public class Game
-    {
-        public string Name { get; set; }
-
-        public Game(string name)
-        {
-            Name = name;
-        }
+        }   
     }
 }
